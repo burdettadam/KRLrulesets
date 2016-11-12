@@ -1,4 +1,4 @@
-  ruleset track_trips {
+    ruleset track_trips {
   meta {
     name "Track Trips"
     description <<This is for part 1>>
@@ -18,7 +18,7 @@
   rule process_trip {
     select when car new_trip
     pre{
-      input = event:attr("milage").klog("Input was: ");
+      input = event:attr("mileage").klog("Input was: ");
     }
     {
       send_directive("trip") with
