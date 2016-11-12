@@ -44,17 +44,17 @@ A first ruleset for the Quickstart
         log ("LOG says Hello " + name);
     }
   }
-    rule message {
+  rule message {
     select when echo message
     pre{
-      name = event:attr("input").klog("Input was: ");
+      input = event:attr("input").klog("Input was: ");
     }
     {
       send_directive("say") with
         something = input;
     }
     always {
-        log ("LOG says Hello " + name);
+        log ("FINISHED MESSAGE!");
     }
   }
  
