@@ -89,3 +89,6 @@ Two rules ran
 4216023433 INFO b507937x2 process_trip rule fired 
 4216023435 INFO b507937x2 process_trip Explicit log value: FINISHED MESSAGE! 
 4216023440 INFO b507937x2 process_trip -----***---- Event processing finished; assembling response ----***----- 
+
+
+
