@@ -1,0 +1,91 @@
+Lab6:
+Source URLS-
+1)https://raw.githubusercontent.com/2russellsmith/KRLrulesets/master/hello.krl
+2)https://raw.githubusercontent.com/2russellsmith/KRLrulesets/master/Tracktrips.krl
+
+RIDs:
+1) hello - b507937x0
+2) TrackTrips - b507937x2
+
+Pico ECI - 610E9F6C-9F0C-11E6-9A21-F88BE71C24E1
+
+1- Copy and paste into http://cs.kobj.net/manage/validate/
+While not an automated deployment which would be preferred, it was easier as it required no setup.
+
+2-
+{
+    "directives": [{
+        "options": null,
+        "name": "say",
+        "meta": {
+            "rule_name": "message",
+            "txn_id": "A58C2D92-A913-11E6-BC3F-42042451A93B",
+            "rid": "b507937x0",
+            "eid": "24133795377"
+        }
+    }]
+}
+
+One rule ran
+
+3-
+{
+    "directives": [{
+        "options": null,
+        "name": "say",
+        "meta": {
+            "rule_name": "message",
+            "txn_id": "B125D9D8-A917-11E6-B9A9-39B9E71C24E1",
+            "rid": "b507937x0",
+            "eid": "54146498929"
+        }
+    }, {
+        "options": null,
+        "name": "trip",
+        "meta": {
+            "rule_name": "process_trip",
+            "txn_id": "B125D9D8-A917-11E6-B9A9-39B9E71C24E1",
+            "rid": "b507937x2",
+            "eid": "54146498929"
+        }
+    }]
+}
+
+Two rules ran
+
+4-
+4216022954 INFO [no rid] [global] -----***---- Determine Saliance Graph ----***----- 
+4216023050 INFO [no rid] [global] -----***---- Decode Event ----***----- 
+4216023050 INFO [no rid] [global] _api:sky 
+4216023050 INFO [no rid] [global] domain:echo 
+4216023050 INFO [no rid] [global] eci:610E9F6C-9F0C-11E6-9A21-F88BE71C24E1 
+4216023050 INFO [no rid] [global] eid:30566894817 
+4216023051 INFO [no rid] [global] event_attrs:{input:I HAVE INPUT!} 
+4216023051 INFO [no rid] [global] eventtype:message 
+4216023051 INFO [no rid] [global] explicit_rids: 
+4216023051 INFO [no rid] [global] host:98.165.63.55 
+4216023051 INFO [no rid] [global] hostname:cs.kobj.net, cs.kobj.net 
+4216023052 INFO [no rid] [global] method:echo 
+4216023052 INFO [no rid] [global] rid:undef 
+4216023053 INFO [no rid] [global] rids:b507937x0.prod;b507937x2.prod; 
+4216023053 INFO [no rid] [global] rule_version:prod 
+4216023053 INFO [no rid] [global] timestamp:2016-11-12T20:40:58 
+4216023053 INFO [no rid] [global] txn_id:51432C9A-A918-11E6-AEEA-76B9E71C24E1 
+4216023053 INFO [no rid] [global] uri:/sky/event/610E9F6C-9F0C-11E6-9A21-F88BE71C24E1/30566894817/echo/message 
+4216023054 INFO [no rid] [global] version:prod 
+4216023055 INFO [no rid] [global] -----***---- Start Scheduling ----***----- 
+4216023056 INFO [no rid] [global] Processing event echo/message for b507937x0 
+4216023103 INFO b507937x0 message Adding to schedule: b507937x0.prod:message 
+4216023217 INFO b507937x0 message Processing event echo/message for b507937x2 
+4216023264 INFO b507937x2 process_trip Adding to schedule: b507937x2.prod:process_trip 
+4216023392 INFO b507937x0 message Context switch to b507937x0:message for event echo:message 
+4216023398 INFO b507937x0 message -----***---- begin rule execution: message ----***----- 
+4216023409 INFO b507937x0 message Input was: I HAVE INPUT! 
+4216023409 INFO b507937x0 message rule fired 
+4216023411 INFO b507937x0 message Explicit log value: LOG says Hello I HAVE INPUT! 
+4216023414 INFO b507937x2 process_trip Context switch to b507937x2:process_trip for event echo:message 
+4216023421 INFO b507937x2 process_trip -----***---- begin rule execution: process_trip ----***----- 
+4216023433 INFO b507937x2 process_trip Input was: 
+4216023433 INFO b507937x2 process_trip rule fired 
+4216023435 INFO b507937x2 process_trip Explicit log value: FINISHED MESSAGE! 
+4216023440 INFO b507937x2 process_trip -----***---- Event processing finished; assembling response ----***----- 

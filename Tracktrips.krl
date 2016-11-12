@@ -16,7 +16,7 @@ ruleset track_trips {
  
   }
   rule process_trip {
-    select when echo message
+    select when car new_trip
     pre{
       input = event:attr("milage").klog("Input was: ");
     }
