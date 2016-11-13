@@ -21,11 +21,23 @@ ruleset trip_store {
       send_directive("Trips") with
         time = time:now;
     }
-    always {
-      set ent:mileages[0] input;
-      set ent:timestamps[0] time:now();
-      log (ent:mileages);
-      log (ent:timestamps);
+    fired {
+      set ent:trips{time:now()} mileage;
+      log(trips);
+    }
+  }
+  rule collect_long_trips {
+    select when explicit processed_trip
+    pre{
+      input = event:attr("mileage").klog("Input was: ");
+    }
+    {
+      send_directive("Trips") with
+        time = time:now;
+    }
+    fired {
+      set ent:longtrips{time:now()} mileage;
+      log(trips);
     }
   }
 }
