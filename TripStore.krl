@@ -22,8 +22,8 @@ ruleset trip_store {
         time = time:now;
     }
     always {
-      set ent:mileages input;
-      set ent:timestamps time:now();
+      set ent:mileages[0] input;
+      set ent:timestamps[0] time:now();
       log (ent:mileages);
       log (ent:timestamps);
     }
