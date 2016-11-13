@@ -8,8 +8,16 @@ ruleset trip_store {
  
   }
   global {
-
-    long_trip = 10
+    trips = function(){
+      trips;
+    }
+    long_trips = function(){
+      long_trips;
+    }
+    short_trips = function(){
+      short_trips = ent:trips.filter(function(timestamp,mileage){ent:trips{timestamp} != ent:long_trips{timestamp}});
+      short_trips;
+    }
  
   }
   rule collect_trips {
