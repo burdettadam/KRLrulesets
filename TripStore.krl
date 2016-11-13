@@ -17,10 +17,6 @@ ruleset trip_store {
     pre{
       input = event:attr("mileage").klog("Input was: ");
     }
-    {
-      send_directive("Trips") with
-        time = time:now;
-    }
     fired {
       set ent:trips{time:now()} mileage;
       log(trips);
@@ -31,13 +27,16 @@ ruleset trip_store {
     pre{
       input = event:attr("mileage").klog("Input was: ");
     }
-    {
-      send_directive("Trips") with
-        time = time:now;
-    }
     fired {
       set ent:longtrips{time:now()} mileage;
       log(trips);
+    }
+  }
+  rule clear_trips {
+    select when car trip_reset
+    always{
+      clear ent:trip_store;
+      clear ent:long_trip_store;
     }
   }
 }
