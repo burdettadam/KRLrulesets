@@ -17,6 +17,10 @@ ruleset trip_store {
     pre{
       input = event:attr("mileage").klog("Input was: ");
     }
+    {
+      send_directive("Trips") with
+        time = time:now;
+    }
     always {
       set ent:mileages input;
       set ent:timestamps time:now();
