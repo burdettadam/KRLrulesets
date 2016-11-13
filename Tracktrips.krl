@@ -13,6 +13,7 @@
       msg = "Hello " + obj
       msg
     };
+    long_trip = 10
  
   }
   rule process_trip {
@@ -25,8 +26,30 @@
         length = milage;
     }
     always {
-        log ("FINISHED MESSAGE!");
+      raise explicit event 'trip_processed'
+      attributes event:attrs();
+      log ("FINISHED process_trip MESSAGE!");
     }
   }
- 
+  rule find_long_trips {
+    select when explicit trip_processed
+    pre{
+      input = event:attr("mileage");
+    }
+    always {
+      raise explicit event 'found_long_trip'
+      attributes event:attrs()
+      if(input > long_trip);
+      log ("FINISHED find_long_trips MESSAGE!");
+    }
+  }
+  rule found_long_trips {
+    select when explicit found_long_trip
+    pre{
+      input = event:attr("mileage");
+    }
+    always {
+        log ("FINISHED Found_long_trips MESSAGE!");
+    }
+  }
 }
