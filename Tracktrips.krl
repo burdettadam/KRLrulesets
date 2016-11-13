@@ -1,7 +1,7 @@
 ruleset track_trips {
   meta {
     name "Track Trips"
-    description <<This is for part 1>>
+    description <<This is for part 2>>
     author "Russell Smith"
     logging on
     sharing on

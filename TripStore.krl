@@ -1,17 +1,13 @@
 ruleset trip_store {
   meta {
-    name "Track Trips"
-    description <<This is for part 1>>
+    name "Trip Store"
+    description <<This is for part 3>>
     author "Russell Smith"
     logging on
     sharing on
  
   }
   global {
-    hello = function(obj) {
-      msg = "Hello " + obj
-      msg
-    };
 
     long_trip = 10
  
