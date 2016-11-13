@@ -5,7 +5,8 @@ ruleset trip_store {
     author "Russell Smith"
     logging on
     sharing on
- 
+    provides trips, long_trips, short_trips
+
   }
   global {
     trips = function(){
@@ -27,7 +28,7 @@ ruleset trip_store {
     }
     fired {
       set ent:trips{time:now()} mileage;
-      log(trips);
+      log(ent:trips);
     }
   }
   rule collect_long_trips {
@@ -37,7 +38,7 @@ ruleset trip_store {
     }
     fired {
       set ent:longtrips{time:now()} mileage;
-      log(trips);
+      log(ent:trips);
     }
   }
   rule clear_trips {
