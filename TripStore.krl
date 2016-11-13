@@ -24,7 +24,8 @@ ruleset trip_store {
     always {
       set ent:mileages input;
       set ent:timestamps time:now();
-      log ("FINISHED process_trip MESSAGE!");
+      log (ent:mileages);
+      log (ent:timestamps);
     }
   }
 }
