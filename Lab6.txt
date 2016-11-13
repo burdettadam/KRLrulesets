@@ -92,3 +92,65 @@ Two rules ran
 
 
 
+PART 2:
+
+Source URL: https://raw.githubusercontent.com/2russellsmith/KRLrulesets/master/Tracktrips.krl
+RIDs: TrackTrips - b507937x2
+Pico ECI - 610E9F6C-9F0C-11E6-9A21-F88BE71C24E1
+
+1 -
+This question is very ambiguous. The differences between have a mileage and not is that the one with the mileage has a mileage while the other is empty. It still runs though. This can probably be changed to throw an error if the mileage is missing.
+
+2-
+It can definitely be thought of as a event intermediary. It is acting as an event guide by deciding which events are going to be raised based on previous data, however it doesn't do any of the business logic itself. 
+
+3- 10 was my long_trip value
+We see at 4247884082 below that our process_trip rule recieved an input of 11. Then at 4247884207 we see find_long_trips firing the found_long_trips rule. The rest of the lines we can see that rule being executed. 
+
+Input : 11
+
+4247884077 INFO b507937x2 process_trip -----***---- begin rule execution: process_trip ----***----- 
+4247884082 INFO b507937x2 process_trip Input was: 11 
+4247884083 INFO b507937x2 process_trip rule fired 
+4247884104 INFO b507937x2 process_trip Raising explicit event explicit:trip_processed for b507937x2:prod 
+4247884125 INFO b507937x2 find_long_trips Adding to schedule: b507937x2.prod:find_long_trips 
+4247884174 INFO b507937x2 find_long_trips Explicit log value: FINISHED process_trip MESSAGE! 
+4247884176 INFO b507937x2 find_long_trips Context switch to b507937x2:find_long_trips for event explicit:trip_processed 
+4247884178 INFO b507937x2 find_long_trips -----***---- begin rule execution: find_long_trips ----***----- 
+4247884184 INFO b507937x2 find_long_trips rule fired 
+4247884207 INFO b507937x2 find_long_trips Raising explicit event explicit:found_long_trip for b507937x2:prod 
+4247884229 INFO b507937x2 found_long_trips Adding to schedule: b507937x2.prod:found_long_trips 
+4247884277 INFO b507937x2 found_long_trips Explicit log value: FINISHED find_long_trips MESSAGE! 
+4247884280 INFO b507937x2 found_long_trips Context switch to b507937x2:found_long_trips for event explicit:found_long_trip 
+4247884282 INFO b507937x2 found_long_trips -----***---- begin rule execution: found_long_trips ----***----- 
+4247884287 INFO b507937x2 found_long_trips rule fired 
+4247884288 INFO b507937x2 found_long_trips Explicit log value: FINISHED Found_long_trips MESSAGE! 
+4247884293 INFO b507937x2 found_long_trips -----***---- Event processing finished; assembling response ----***----- 
+
+Below we see another event raised with a value of 10 as we see at 4246485108.  Then we see that find_long_trips never fires the found_long_trip event and terminates.
+
+Input : 10
+
+4246485011 INFO [no rid] [global] -----***---- Start Scheduling ----***----- 
+4246485012 INFO [no rid] [global] Processing event car/new_trip for b507937x2 
+4246485036 INFO b507937x2 process_trip Adding to schedule: b507937x2.prod:process_trip 
+4246485095 INFO b507937x2 process_trip Context switch to b507937x2:process_trip for event car:new_trip 
+4246485102 INFO b507937x2 process_trip -----***---- begin rule execution: process_trip ----***----- 
+4246485108 INFO b507937x2 process_trip Input was: 10 
+4246485109 INFO b507937x2 process_trip rule fired 
+4246485131 INFO b507937x2 process_trip Raising explicit event explicit:trip_processed for b507937x2:prod 
+4246485155 INFO b507937x2 find_long_trips Adding to schedule: b507937x2.prod:find_long_trips 
+4246485207 INFO b507937x2 find_long_trips Explicit log value: FINISHED process_trip MESSAGE! 
+4246485210 INFO b507937x2 find_long_trips Context switch to b507937x2:find_long_trips for event explicit:trip_processed 
+4246485211 INFO b507937x2 find_long_trips -----***---- begin rule execution: find_long_trips ----***----- 
+4246485217 INFO b507937x2 find_long_trips rule fired 
+4246485218 INFO b507937x2 find_long_trips Explicit log value: FINISHED find_long_trips MESSAGE! 
+4246485223 INFO b507937x2 find_long_trips -----***---- Event processing finished; assembling response -
+
+4- The proper way to set this would be from a Configuration file that was loading in at start up. This allows moderaters to edit that value without touching any code. 
+
+
+
+
+
+

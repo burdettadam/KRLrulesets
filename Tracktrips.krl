@@ -1,20 +1,14 @@
-    ruleset track_trips {
+ruleset track_trips {
   meta {
     name "Track Trips"
     description <<This is for part 1>>
     author "Russell Smith"
     logging on
     sharing on
-    provides hello
  
   }
   global {
-    hello = function(obj) {
-      msg = "Hello " + obj
-      msg
-    };
     long_trip = 10
- 
   }
   rule process_trip {
     select when car new_trip
