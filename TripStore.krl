@@ -30,6 +30,7 @@ ruleset trip_store {
       raise explicit event 'found_long_trip'
       attributes event:attrs()
       if(input > long_trip);
+      set ent:alltrips [];
       set ent:alltrips{time:now()} mileage;
       log(ent:alltrips);
     }
@@ -40,6 +41,7 @@ ruleset trip_store {
       input = event:attr("mileage").klog("Input was: ");
     }
     fired {
+      set ent:longtrips [];
       set ent:longtrips{time:now()} mileage;
       log(ent:longtrips);
     }
