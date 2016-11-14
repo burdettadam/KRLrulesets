@@ -24,13 +24,12 @@ ruleset trip_store {
   rule collect_trips {
     select when explicit processed_trip
     pre{
-      input = event:attr("mileage").klog("Input was: ");
+      mileage = event:attr("mileage").klog("Input was: ");
     }
     fired {
       raise explicit event 'found_long_trip'
       attributes event:attrs()
       if(input > long_trip);
-      set ent:alltrips [];
       set ent:alltrips{time:now()} mileage;
       log(ent:alltrips);
     }
@@ -38,10 +37,9 @@ ruleset trip_store {
   rule collect_long_trips {
     select when explicit found_long_trip
     pre{
-      input = event:attr("mileage").klog("Input was: ");
+      mileage = event:attr("mileage").klog("Input was: ");
     }
     fired {
-      set ent:longtrips [];
       set ent:longtrips{time:now()} mileage;
       log(ent:longtrips);
     }
