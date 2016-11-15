@@ -19,7 +19,7 @@ ruleset trip_store {
       short_trips = ent:trips.filter(function(timestamp,mileage){ent:trips{timestamp} != ent:long_trips{timestamp}});
       short_trips;
     }
- 
+    long_trip = 10;
   }
   rule collect_trips {
     select when explicit processed_trip
@@ -29,7 +29,7 @@ ruleset trip_store {
     fired {
       raise explicit event 'found_long_trip'
       attributes event:attrs()
-      if(input > long_trip);
+      if(mileage > long_trip);
       set ent:alltrips{time:now()} mileage;
       log(ent:alltrips);
     }

@@ -149,6 +149,18 @@ Input : 10
 
 4- The proper way to set this would be from a Configuration file that was loading in at start up. This allows moderaters to edit that value without touching any code. 
 
+Part 3:
+
+Source URLS - https://raw.githubusercontent.com/2russellsmith/KRLrulesets/master/TrackStore.krl
+RID - b507937x4
+Pico ECI - 610E9F6C-9F0C-11E6-9A21-F88BE71C24E1
+Screenshot attached
+
+1- Because you raise an event with the collect_trips event, however unlike a REST API, you must query with the function in order to get the data. This allows a decoupling of the two actions.
+2- I used the array filter and said to remove any from alltrips where it existed in longtrips
+3- You would not be able to call trips from outside that ruleset
+4- This would disallow any modularization of globals in that ruleset.
+
 
 
 
