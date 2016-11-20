@@ -5,7 +5,6 @@ ruleset childSub {
     author "Russell Smith"
     logging on
     sharing on
-    use module v1_wrangler alias wrangler
     use module b507199x5 alias wrangler_api
 
   }
