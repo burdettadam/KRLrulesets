@@ -25,7 +25,7 @@ ruleset manage_fleet {
       // wrangler api event for child creation. meta:eci() provides the eci of this Pico
       event:send({"cid":meta:eci()}, "wrangler", "child_creation") 
       with attrs = attributes.klog("attributes: ");
-      send_directive("Item created") with attributes = "#{attributes}" and name = "#{name}" ;
+      send_directive("Item created") with attributes = attributes and name = name;
     
     } 
     always{
