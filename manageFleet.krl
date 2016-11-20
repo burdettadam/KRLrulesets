@@ -14,7 +14,7 @@ ruleset manage_fleet {
   rule create_vehicle {
     select when car new_vehicle
     pre {
-      vehicle_id = name = "Vehicle-" + ent:vehicleId.as(str);
+      vehicle_id = "Vehicle-" + ent:vehicleId.as(str);
       attributes = {}
         .put(["Prototype_rids"],"b507944x4.prod;b507944x5.prod")
         .put(["name"], vehicle_id) 
