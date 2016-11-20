@@ -25,7 +25,7 @@ ruleset childSub {
           .put(["your_role"],"Fleet")
           .put(["target_eci"],parent_eci.klog("target Eci: "))
           .put(["channel_type"],"VehicleFleet")
-          .put(["attrs"], "success");
+          .put(["attrs"], meta:eci());
       }
       {
        noop();

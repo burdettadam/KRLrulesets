@@ -16,19 +16,33 @@ ruleset manage_fleet {
     select when car new_vehicle
     pre {
       child_name = event:attr("name");
-      attr = {}
+      attributes = {}
         .put(["Prototype_rids"],"b507944x2.dev;b507944x3.dev")
         .put(["name"], child_name) 
         .put(["parent_eci"],"E444036C-AEA8-11E6-9438-DCCCE71C24E1");
     }
-    {
-      noop();
+    // wrangler api event for child creation. meta:eci() provides the eci of this Pico
+    event:send({"cid":meta:eci()}, "wrangler", "child_creation") with attrs = attributes.klog("attributes: ");
+  
+    //send_directives are sent out via API
+    //Output to Kynetx Event Console - Response body
+    //or API call - response body
+        send_directive("Child was created") with attributes = "#{attributes}" and name = "#{name}" ;
     }
     always{
-      raise wrangler event "child_creation"
-      attributes attr.klog("attributes: ");
+  
+      //Not required but does show an example of persistent variable instantiation
+      //This entity variable creates a subscription between the child to parent with "name"
+      //and the meta:eci() which provides the eci of the current rules set (in this case the parent's eci)
+      set ent:subscriptions{"name"} meta:eci();
+       
+      //this shows up in the pico logs
+      log("Create child item for " + child);
     }
   }
+
+
+
   rule autoAccept {
     select when wrangler inbound_pending_subscription_added
     pre{
