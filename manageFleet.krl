@@ -17,10 +17,9 @@ ruleset manage_fleet {
     pre {
       child_name = event:attr("name");
       attr = {}
-        .put(["Prototype_rids"],"b507782x4.dev"
+        .put(["Prototype_rids"],"b507782x4.dev")
         .put(["name"], child_name) 
         .put(["parent_eci"],"E444036C-AEA8-11E6-9438-DCCCE71C24E1");
-
     }
     {
       noop();
@@ -41,7 +40,7 @@ ruleset manage_fleet {
     always{
       raise wrangler event 'pending_subscription_approval'
           attributes attributes;       
-          log("auto accepted subcription.");
+          log("auto accepted subscription.");
     }
   }
 }
