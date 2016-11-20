@@ -5,7 +5,7 @@ ruleset childSub {
     author "Russell Smith"
     logging on
     sharing on
-    use module b507199x5 alias wrangler_api
+    use module b507199x5 alias wrangler
 
   }
   global {
@@ -16,7 +16,7 @@ ruleset childSub {
       pre {
          // find parant
          // place  "use module  b507199x5 alias wrangler_api" in meta block!!
-         parent_results = wrangler_api:parent();
+         parent_results = wrangler:parent();
          parent = parent_results{'parent'};
          parent_eci = parent[0]; // eci is the first element in tuple
          attrs = {}.put(["name"],event:attr("name"))
