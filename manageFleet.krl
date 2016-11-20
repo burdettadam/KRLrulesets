@@ -21,6 +21,7 @@ ruleset manage_fleet {
         .put(["name"], child_name) 
         .put(["parent_eci"],"E444036C-AEA8-11E6-9438-DCCCE71C24E1");
     }
+    {
     // wrangler api event for child creation. meta:eci() provides the eci of this Pico
     event:send({"cid":meta:eci()}, "wrangler", "child_creation") with attrs = attributes.klog("attributes: ");
   
