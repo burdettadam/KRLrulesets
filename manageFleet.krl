@@ -15,21 +15,18 @@ ruleset manage_fleet {
   rule create_vehicle {
     select when car new_vehicle
     pre {
-      child_name = event:attr("name");
+      vehicle_id = name = "Vehicle-" + ent:vehicleId.as(str);
       attributes = {}
         .put(["Prototype_rids"],"b507944x4.prod;b507944x5.prod")
-        .put(["name"], child_name) 
+        .put(["name"], vehicle_id) 
         .put(["parent_eci"],"E444036C-AEA8-11E6-9438-DCCCE71C24E1");
     }
     {
-    // wrangler api event for child creation. meta:eci() provides the eci of this Pico
-    event:send({"cid":meta:eci()}, "wrangler", "child_creation") with attrs = attributes.klog("attributes: ");
+      // wrangler api event for child creation. meta:eci() provides the eci of this Pico
+      event:send({"cid":meta:eci()}, "wrangler", "child_creation") 
+      with attrs = attributes.klog("attributes: ");
   
-    //send_directives are sent out via API
-    //Output to Kynetx Event Console - Response body
-    //or API call - response body
-        send_directive("Child was created") with attributes = "#{attributes}" and name = "#{name}" ;
-    }
+    } 
     always{
   
       //Not required but does show an example of persistent variable instantiation
@@ -37,6 +34,8 @@ ruleset manage_fleet {
       //and the meta:eci() which provides the eci of the current rules set (in this case the parent's eci)
       set ent:subscriptions{"name"} meta:eci();
        
+      set ent:vehicleId 0 if not ent:vehicleId;
+      set ent:vehicleId ent:vehicleId + 1;
       //this shows up in the pico logs
       log("Create child item for " + child);
     }
