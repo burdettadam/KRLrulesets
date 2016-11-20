@@ -16,7 +16,7 @@ ruleset manage_fleet {
     pre {
       vehicle_id = "Vehicle-" + ent:vehicleId.as(str);
       attributes = {}
-        .put(["prototype"], "b507944x4.prod;b507944x5.prod")
+        .put(["Prototype_rids"], "b507944x4.prod;b507944x5.prod")
         .put(["name"], vehicle_id);
     }
     {
