@@ -16,7 +16,7 @@ ruleset manage_fleet {
     pre {
       vehicle_id = "Vehicle-" + ent:vehicleId.as(str);
       attributes = {}
-        .put(["Prototype_rids"], "b507944x4.prod, b507944x5.prod")
+        .put(["prototype"], "b507944x4.prod, b507944x5.prod")
         .put(["name"], vehicle_id) 
         .put(["owner"], "E444036C-AEA8-11E6-9438-DCCCE71C24E1")
         .put(["parent_eci"],"E444036C-AEA8-11E6-9438-DCCCE71C24E1");
