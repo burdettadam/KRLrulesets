@@ -17,7 +17,7 @@ ruleset manage_fleet {
     pre {
       child_name = event:attr("name");
       attr = {}
-        .put(["Prototype_rids"],"b507944x2.dev")
+        .put(["Prototype_rids"],"b507944x2.dev;b507944x3.dev")
         .put(["name"], child_name) 
         .put(["parent_eci"],"E444036C-AEA8-11E6-9438-DCCCE71C24E1");
     }
