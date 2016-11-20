@@ -5,7 +5,7 @@ ruleset manage_fleet {
     author "Russell Smith"
     logging on
     sharing on
-    use module b507199x14 alias wrangler
+    use module v1_wrangler alias wrangler
 
   }
   global {
