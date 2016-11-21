@@ -13,47 +13,31 @@ ruleset manage_fleet {
   }
   rule create_vehicle {
     select when car new_vehicle
-    pre {
+    pre{
       vehicle_id = "Vehicle-" + ent:vehicleId.as(str);
-      attributes = {}
-        .put(["Prototype_rids"], "b507944x4.prod;b507944x5.prod")
-        .put(["name"], vehicle_id);
+      name = event:attr("name").defaultsTo(vehicle_id);
+    }
+    fired {
+      raise pico_systems event 'ruleset_install_requested'
+      attributes event:attrs();
     }
     {
-      // wrangler api event for child creation. meta:eci() provides the eci of this Pico
-      event:send({"cid":meta:eci()}, "wrangler", "child_creation") 
-      with attrs = attributes.klog("attributes: ");
-      send_directive("Item created") with attributes = attributes and name = name;
-    
-    } 
+      wrangler:createChild(name);
+    }
     always{
-  
-      //Not required but does show an example of persistent variable instantiation
-      //This entity variable creates a subscription between the child to parent with "name"
-      //and the meta:eci() which provides the eci of the current rules set (in this case the parent's eci)
-      set ent:subscriptions{"name"} meta:eci();
-       
       set ent:vehicleId 0 if not ent:vehicleId;
       set ent:vehicleId ent:vehicleId + 1;
-      //this shows up in the pico logs
-      log("Create child item for " + child);
+      log("create child names " + name);
     }
   }
-
-
-
-  rule autoAccept {
-    select when wrangler inbound_pending_subscription_added
-    pre{
-      attributes = event:attrs().klog("subcription :");
+  rule installRulesetInChild {
+    select when pico_systems ruleset_install_requested
+    pre {
+      rid = "b507944x4.prod";
+      pico_name = event:attr("name");
     }
-    {
-      noop();
-    }
-    always{
-      raise wrangler event 'pending_subscription_approval'
-          attributes attributes;       
-          log("auto accepted subscription.");
-    }
+    wrangler:installRulesets(rid) with
+      name = pico_name
   }
+
 }
