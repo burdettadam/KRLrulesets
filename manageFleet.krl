@@ -17,10 +17,6 @@ ruleset manage_fleet {
       vehicle_id = "Vehicle-" + ent:vehicleId.as(str);
       name = event:attr("name").defaultsTo(vehicle_id);
     }
-    fired {
-      raise pico_systems event 'ruleset_install_requested'
-      attributes event:attrs();
-    }
     {
       wrangler:createChild(name);
     }
