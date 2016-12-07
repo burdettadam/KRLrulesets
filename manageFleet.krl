@@ -32,7 +32,7 @@ ruleset manage_fleet {
   rule installRulesetInChild {
     select when pico_systems ruleset_install_requested
     pre {
-      rid = "b507944x4.prod";
+      rid = ["b507944x4.prod","b507937x8.prod"];
       pico_name = event:attr("name");
     }
     wrangler:installRulesets(rid) with
