@@ -15,15 +15,14 @@ ruleset manage_fleet {
     select when car new_vehicle
     pre{
       vehicle_id = "Vehicle-" + ent:vehicleId.as(str);
-      rid = "b507937x6.prod";
       name = event:attr("name").defaultsTo(vehicle_id);
     }
     {
       wrangler:createChild(name);
-      wrangler:installRulesets(rid) with
-      name = name;
     }
     always{
+      raise pico_systems event 'ruleset_install_requested'
+      with name = name;
       set ent:vehicleId 0 if not ent:vehicleId;
       set ent:vehicleId ent:vehicleId + 1;
       log("create child names " + name);
@@ -33,11 +32,11 @@ ruleset manage_fleet {
   rule installRulesetInChild {
     select when pico_systems ruleset_install_requested
     pre {
-      rid = "b507937x6.prod";
+      rid = "b507944x4.prod";
       pico_name = event:attr("name");
     }
     wrangler:installRulesets(rid) with
-      name = pico_name
+      name = pico_name;
   }
 
 }
