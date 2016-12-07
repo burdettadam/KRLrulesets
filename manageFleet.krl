@@ -19,6 +19,8 @@ ruleset manage_fleet {
     }
     {
       wrangler:createChild(name);
+      wrangler:installRulesets(rid) with
+      name = name;
     }
     always{
       set ent:vehicleId 0 if not ent:vehicleId;
@@ -26,6 +28,7 @@ ruleset manage_fleet {
       log("create child names " + name);
     }
   }
+
   rule installRulesetInChild {
     select when pico_systems ruleset_install_requested
     pre {
