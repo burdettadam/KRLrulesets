@@ -15,6 +15,7 @@ ruleset manage_fleet {
     select when car new_vehicle
     pre{
       vehicle_id = "Vehicle-" + ent:vehicleId.as(str);
+      rid = "b507944x4.prod";
       name = event:attr("name").defaultsTo(vehicle_id);
     }
     {
