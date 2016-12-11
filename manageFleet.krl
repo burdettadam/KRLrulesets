@@ -9,7 +9,10 @@ ruleset manage_fleet {
 
   }
   global {
-
+    vehicles = function() {
+          wranglerSubscriptions = wrangler:subscriptions();
+          wranglerSubscriptions;
+    }
   }
   rule create_vehicle {
     select when car new_vehicle
@@ -38,5 +41,20 @@ ruleset manage_fleet {
     wrangler:installRulesets(rid) with
       name = pico_name;
   }
+
+  rule autoAccept {
+  select when wrangler inbound_pending_subscription_added
+  pre{
+    attributes = event:attrs().klog("subcription :");
+    }
+    {
+    noop();
+    }
+  always{
+    raise wrangler event 'pending_subscription_approval'
+        attributes attributes;       
+        log("auto accepted subscription.");
+  }
+}
 
 }
